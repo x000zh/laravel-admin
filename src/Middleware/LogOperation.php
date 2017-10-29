@@ -25,7 +25,7 @@ class LogOperation
                 'path'    => $request->path(),
                 'method'  => $request->method(),
                 'ip'      => $request->getClientIp(),
-                'input'   => json_encode($request->input()),
+                'input'   => json_encode($request->input(), JSON_UNESCAPED_UNICODE),
             ];
 
             OperationLogModel::create($log);
