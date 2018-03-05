@@ -485,10 +485,14 @@ EOT;
         }
 
         $reservedColumns = [
-            $this->form->model()->getKeyName(),
             $this->form->model()->getCreatedAtColumn(),
             $this->form->model()->getUpdatedAtColumn(),
         ];
+
+        if($this->form->model()->getIncrementing()){
+            //如果是自增的主键则移除
+            $reservedColumns[] = $this->form->model()->getKeyName();
+        }
 
         $this->fields = $this->fields()->reject(function (Field $field) use ($reservedColumns) {
             return in_array($field->column(), $reservedColumns);
