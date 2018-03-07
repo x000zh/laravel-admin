@@ -688,6 +688,9 @@ class Field implements Renderable
      */
     public function prepare($value)
     {
+        if(is_null($value)){
+            return $this->getDefault();
+        }
         return $value;
     }
 
