@@ -18,7 +18,9 @@ class Handler
     {
         $error = new MessageBag([
             'type'      => get_class($exception),
-            'message'   => $exception->getMessage(),
+            //'message'   => $exception->getMessage(),
+            //stack maybe more useful
+            'message'   => $exception->getTraceAsString(),
             'file'      => $exception->getFile(),
             'line'      => $exception->getLine(),
         ]);
