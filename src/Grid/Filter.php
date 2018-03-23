@@ -76,7 +76,14 @@ class Filter
 
         $pk = $this->model->eloquent()->getKeyName();
 
-        $this->equal($pk, strtoupper($pk));
+        //handle composite key simply.
+        if(is_array($pk)){
+            foreach($pk as $k){
+                $this->equal($k, strtoupper($k));
+            }
+        }else{
+            $this->equal($pk, strtoupper($pk));
+        }
     }
 
     /**
