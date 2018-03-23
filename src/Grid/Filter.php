@@ -78,9 +78,10 @@ class Filter
 
         //handle composite key simply.
         if(is_array($pk)){
-            foreach($pk as $k){
-                $this->equal($k, strtoupper($k));
-            }
+            //TODO fix composite key compability
+            //foreach($pk as $k){
+            //    $this->equal($k, strtoupper($k));
+            //}
         }else{
             $this->equal($pk, strtoupper($pk));
         }

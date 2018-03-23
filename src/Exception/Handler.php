@@ -16,11 +16,13 @@ class Handler
      */
     public static function renderException(\Exception $exception)
     {
+        $trace = explode("\n", $exception->getTraceAsString());
+
         $error = new MessageBag([
             'type'      => get_class($exception),
             //'message'   => $exception->getMessage(),
             //stack maybe more useful
-            'message'   => $exception->getTraceAsString(),
+            'message'   => implode("\n", array_slice($trace, 0, 10)),
             'file'      => $exception->getFile(),
             'line'      => $exception->getLine(),
         ]);
