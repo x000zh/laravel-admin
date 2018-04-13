@@ -81,6 +81,12 @@ abstract class AbstractFilter
      */
     protected $view = 'admin::filter.where';
 
+
+    /**
+     * @var Callable
+     **/
+    protected $value_transformer = null;
+
     /**
      * AbstractFilter constructor.
      *
@@ -222,9 +228,21 @@ abstract class AbstractFilter
             return;
         }
 
-        $this->value = $value;
+        if(null == $this->value_transformer){
+            $this->value = $value;
+        }else{
+            $this->value = ($this->value_transformer)($value);
+        }
 
         return $this->buildCondition($this->column, $this->value);
+    }
+
+    /**
+     *
+     * Decode or transform value method
+     **/
+    public function transform(callable $value_transformer ){
+        $this->value_transformer = $value_transformer;
     }
 
     /**
