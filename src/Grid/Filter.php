@@ -66,6 +66,11 @@ class Filter
     protected $view = 'admin::filter.modal';
 
     /**
+     * @var AbstractFilter
+     */
+    protected $idFilter = null;
+
+    /**
      * Create a new filter instance.
      *
      * @param Model $model
@@ -83,7 +88,7 @@ class Filter
             //    $this->equal($k, strtoupper($k));
             //}
         }else{
-            $this->equal($pk, strtoupper($pk));
+            $this->idFilter = $this->equal($pk, strtoupper($pk));
         }
     }
 
@@ -107,6 +112,13 @@ class Filter
     public function disableIdFilter()
     {
         $this->useIdFilter = false;
+    }
+
+    /**
+     * id filter
+     */
+    public function getIdFilter(){
+        return $this->idFilter;
     }
 
     /**

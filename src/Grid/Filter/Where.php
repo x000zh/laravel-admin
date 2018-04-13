@@ -66,7 +66,11 @@ class Where extends AbstractFilter
             return;
         }
 
-        $this->input = $this->value = $value;
+        if(null == $this->value_transformer){
+            $this->input = $this->value = $value;
+        }else{
+            $this->input = $this->value = ($this->value_transformer)($value);
+        }
 
         return $this->buildCondition($this->where->bindTo($this));
     }
