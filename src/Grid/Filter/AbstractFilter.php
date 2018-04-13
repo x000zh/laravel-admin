@@ -243,6 +243,7 @@ abstract class AbstractFilter
      **/
     public function transform(callable $value_transformer ){
         $this->value_transformer = $value_transformer;
+        return $this;
     }
 
     /**
