@@ -444,7 +444,11 @@ class Builder
             return '';
         }
 
-        $text = trans('admin.submit');
+        if ($this->mode == self::MODE_EDIT) {
+            $text = trans('admin.save');
+        } else {
+            $text = trans('admin.submit');
+        }
 
         return <<<EOT
 <div class="btn-group pull-right">
@@ -538,9 +542,9 @@ SCRIPT;
         }
 
         $data = [
-            'form'     => $this,
-            'tabObj'   => $tabObj,
-            'width'    => $this->width,
+            'form'   => $this,
+            'tabObj' => $tabObj,
+            'width'  => $this->width,
         ];
 
         return view($this->view, $data)->render();

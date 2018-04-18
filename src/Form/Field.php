@@ -398,7 +398,11 @@ class Field implements Renderable
             $this->rules = $rules;
         }
 
-        if (is_string($rules)) {
+        if (is_array($rules)) {
+            $thisRuleArr = array_filter(explode('|', $this->rules));
+
+            $this->rules = array_merge($thisRuleArr, explode('|', $this->rules));
+        } elseif (is_string($rules)) {
             $rules = array_filter(explode('|', "{$this->rules}|$rules"));
 
             $this->rules = implode('|', $rules);
@@ -733,13 +737,13 @@ class Field implements Renderable
             ];
         }
 
-        return ['label' =>'', 'field' => '', 'form-group' => ''];
+        return ['label' => '', 'field' => '', 'form-group' => ''];
     }
 
     /**
      * Set form element class.
      *
-     * @param string $class
+     * @param string|array $class
      *
      * @return $this
      */
@@ -860,17 +864,17 @@ class Field implements Renderable
     protected function variables()
     {
         return array_merge($this->variables, [
-            'id'            => $this->id,
-            'name'          => $this->elementName ?: $this->formatName($this->column),
-            'help'          => $this->help,
-            'class'         => $this->getElementClassString(),
-            'value'         => $this->value(),
-            'label'         => $this->label,
-            'viewClass'     => $this->getViewElementClasses(),
-            'column'        => $this->column,
-            'errorKey'      => $this->getErrorKey(),
-            'attributes'    => $this->formatAttributes(),
-            'placeholder'   => $this->getPlaceholder(),
+            'id'          => $this->id,
+            'name'        => $this->elementName ?: $this->formatName($this->column),
+            'help'        => $this->help,
+            'class'       => $this->getElementClassString(),
+            'value'       => $this->value(),
+            'label'       => $this->label,
+            'viewClass'   => $this->getViewElementClasses(),
+            'column'      => $this->column,
+            'errorKey'    => $this->getErrorKey(),
+            'attributes'  => $this->formatAttributes(),
+            'placeholder' => $this->getPlaceholder(),
         ]);
     }
 

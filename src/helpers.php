@@ -20,12 +20,20 @@ if (!function_exists('admin_url')) {
      * Get admin url.
      *
      * @param string $path
+     * @param mixed  $parameters
+     * @param bool   $secure
      *
      * @return string
      */
-    function admin_url($path = '')
+    function admin_url($path = '', $parameters = [], $secure = null)
     {
-        return url(admin_base_path($path));
+        if (\Illuminate\Support\Facades\URL::isValidUrl($path)) {
+            return $path;
+        }
+
+        $secure = $secure ?: config('admin.secure');
+
+        return url(admin_base_path($path), $parameters, $secure);
     }
 }
 
