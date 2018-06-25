@@ -127,7 +127,7 @@ class Form
      *
      * @var array
      */
-    protected $inputs = [];
+    public $inputs = [];
 
     /**
      * Available fields.
